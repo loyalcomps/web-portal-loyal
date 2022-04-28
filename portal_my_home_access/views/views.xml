@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="group_portal_my_home" model="res.groups">
+            <field name="name">View Portal My Home</field>
+        </record>
+
+        <template id="portal_my_home_invoice_access" inherit_id="account.portal_my_home_invoice">
+            <xpath expr="//t[@t-if='invoice_count']" position="attributes">
+                <attribute name="groups">portal_my_home_access.group_portal_my_home</attribute>
+            </xpath>
+        </template>
+        <template id="portal_my_home_sale_access" inherit_id="sale.portal_my_home_sale">
+            <xpath expr="//t[@t-if='quotation_count']" position="attributes">
+                <attribute name="groups">portal_my_home_access.group_portal_my_home</attribute>
+            </xpath>
+            <xpath expr="//t[@t-if='order_count']" position="attributes">
+                <attribute name="groups">portal_my_home_access.group_portal_my_home</attribute>
+            </xpath>
+        </template>
+    </data>
+</odoo>
