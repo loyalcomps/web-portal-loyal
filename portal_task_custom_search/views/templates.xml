@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <template id="assets_frontend" inherit_id="web_editor.assets_frontend" name="Portal task custom searchAssets">
+            <xpath expr="//link[last()]" position="after">
+                <link rel="stylesheet" type="text/scss" href="/portal_task_custom_search/static/src/scss/portal.scss"/>
+            </xpath>
+        </template>
+
+        <template id="portal_groupby_assigned_to" inherit_id="portal_task_fields.portal_timesheet_value">
+
+            <xpath expr="//thead" position="replace">
+                <thead>
+                    <tr t-attf-class="{{'thead-light' if not groupby == 'none' else ''}}">
+                        <th t-if="groupby == 'none'">Name</th>
+                        <th t-if="groupby == 'user'">
+                            <em class="font-weight-normal text-muted">
+                                Task assigned to:
+                            </em>
+                            <span t-field="tasks[0].sudo().user_id.name"/>
+                        </th>
+                        <th t-if="groupby == 'stage'">
+                            <em class="font-weight-normal text-muted">
+                                Task in:
+                            </em>
+                            <span t-field="tasks[0].sudo().stage_id.name"/>
+                        </th>
+                        <th t-else="">
+                            <em class="font-weight-normal text-muted">
+                                <span t-field="tasks[0].sudo().project_id.label_tasks"/>
+                                for project:
+                            </em>
+                            <span t-field="tasks[0].sudo().project_id.name"/>
+                        </th>
+                        <th class="text-right">Assigned to</th>
+                        <th class="text-center">Stage</th>
+                        <!--                                <th class="text-left">Ref</th>-->
+                        <th class="text-left">Deadline</th>
+
+                    </tr>
+                </thead>
+            </xpath>
+
+            <xpath expr="//tbody/t/tr/td/span[@t-esc='task.stage_id.name']" position="attributes">
+                <attribute name="t-att-style">'background-color: %s;' % task.stage_id.stage_bg_color</attribute>
+            </xpath>
+        </template>
+    </data>
+</odoo>

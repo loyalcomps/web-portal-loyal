@@ -1,0 +1,11 @@
+.o_portal_my_doc_table {
+//     table-layout: fixed;
+
+    td,th{
+        word-wrap: break-word;
+        white-space: normal;
+    }
+}
+.o_portal_wrap .o_portal_my_doc_table td, .o_portal_wrap .o_portal_my_doc_table th {
+    white-space: normal;
+}
