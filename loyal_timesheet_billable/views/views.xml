@@ -1,0 +1,87 @@
+<odoo>
+    <data>
+        <record id="account_analytic_line_tree_view" model="ir.ui.view">
+            <field name="name">account.analytic.line.tree.view</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="task_id" position="after">
+                    <field name="is_billable"/>
+                    <field name="pack_type"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="account_analytic_line_search_view" model="ir.ui.view">
+            <field name="name">account.analytic.line.search.view</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_search"/>
+            <field name="arch" type="xml">
+                <field name="task_id" position="after">
+                    <field name="is_billable"/>
+                    <field name="pack_type"/>
+                    <filter name="billable" string="Billable" domain="[('is_billable', '=', True)]"/>
+                </field>
+                <xpath expr="//group/filter[@name='groupby_employee']" position="after">
+                    <filter string="Billable" name="groupby_billable" domain="[]"
+                            context="{'group_by': 'is_billable'}"/>
+                    <filter string="Pack Type" name="groupby_pack_type" domain="[]"
+                            context="{'group_by': 'pack_type'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_task_form_view" model="ir.ui.view">
+            <field name="name">project.task.form.view</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="pack_type"/>
+                </field>
+                <xpath expr="//div[@class='oe_title pr-0']/h1/field[@name='kanban_state']" position="after">
+                    <field name="task_ref" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_task_tree_view" model="ir.ui.view">
+            <field name="name">project.task.tree.view</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+                <field name="tag_ids" position="after">
+                    <field name="pack_type"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="project_task_timesheet_form_view" model="ir.ui.view">
+            <field name="name">project.task.timesheet.form.view</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page/field[@name='timesheet_ids']/tree/field[@name='project_id']" position="after">
+                    <field name="is_billable"/>
+                    <field name="pack_type"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_task_search_view" model="ir.ui.view">
+            <field name="name">project.task.search.view</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="pack_type"/>
+                </field>
+                <xpath expr="//group/filter[@name='stage']" position="after">
+                    <filter string="Pack Type" name="groupby_pack_type" domain="[]"
+                            context="{'group_by': 'pack_type'}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
