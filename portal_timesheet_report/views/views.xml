@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="portal_timesheets_report_view" model="ir.ui.view">
+            <field name="name">portal.timesheet.wizard</field>
+            <field name="model">portal.timesheet.wizard</field>
+            <field name="arch" type="xml">
+               <form>
+                   <group>
+                        <group string="Select Customer">
+                                <field name="customer"/>
+                        </group>
+
+                        <footer>
+                            <button string="Print Timesheet" name="print_timesheet" type="object" class="btn-primary"/>
+                            <button string="Discard" class="btn-default" special="cancel"/>
+                        </footer>
+                    </group>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_print_portal_timesheet_wizard" model="ir.actions.act_window">
+            <field name="name">TimeSheet Report</field>
+            <field name="res_model">portal.timesheet.wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="portal_timesheets_report_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem name="Project Timesheet Analysis" id="print_timesheets" action="action_print_portal_timesheet_wizard" parent="project.menu_project_report"/>
+    </data>
+</odoo>
+
+
+

@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+
+
+<!--         (select distinct s.id, s.partner_id,(sl.product_uom_qty) as total_hours from account_analytic_line as an -->
+<!--                            left join project_project as p on p.id= an.project_id-->
+<!--                            full join sale_order as st on st.project_id=an.project_id-->
+<!--                            full join sale_order as s on (s.id=p.sale_order_id)-->
+<!--                            left join sale_order_line as sl on s.id=sl.order_id-->
+<!--                              where s.project_id=an.project_id or s.id=p.sale_order_id)-->
+<!--
+        <template id="listing">
+          <ul>
+            <li t-foreach="objects" t-as="object">
+              <a t-attf-href="#{ root }/objects/#{ object.id }">
+                <t t-esc="object.display_name"/>
+              </a>
+            </li>
+          </ul>
+        </template>
+        <template id="object">
+          <h1><t t-esc="object.display_name"/></h1>
+          <dl>
+            <t t-foreach="object._fields" t-as="field">
+              <dt><t t-esc="field"/></dt>
+              <dd><t t-esc="object[field]"/></dd>
+            </t>
+          </dl>
+        </template>
+-->
+    </data>
+</odoo>
