@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="view_inherit_helpdesk_stage" model="ir.ui.view">
+            <field name="name">view.inherit.helpdesk.stage</field>
+            <field name="model">helpdesk.stage</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_stage_view_form"/>
+            <field name="arch" type="xml">
+                <field name="fold" position="after">
+                    <field name="stage_bg_color" widget="color" class="mb-4"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
