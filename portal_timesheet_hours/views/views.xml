@@ -1,0 +1,139 @@
+<odoo>
+  <data>
+
+             <template id="portal_timesheet_value" inherit_id="hr_timesheet.portal_my_timesheets">
+
+                 <xpath expr="//t[@t-call='portal.portal_layout']/t[@t-if='grouped_timesheets']/t[@t-call='portal.portal_table']/t[@t-foreach='grouped_timesheets']/thead" position="replace">
+                  <thead>
+                            <tr t-attf-class="{{'thead-light' if not groupby == 'none' else ''}}">
+                                <th t-if="groupby == 'none'">Description</th>
+                                <th t-else="">
+                                    <em class="font-weight-normal text-muted">Timesheets for project:</em>
+                                    <span t-field="timesheets[0].project_id.name"/></th>
+                                <th>Date</th>
+                                <th>Employee</th>
+                                <th class="text-right">Duration</th>
+                            </tr>
+
+
+
+
+                               <tr t-attf-class="{{'thead-light' if not groupby == 'none' else ''}}" style="background-color:#e9ecef;">
+
+                            <t t-set="credittotal" t-value="0"/>
+                            <t t-set="sale" t-value="0"/>
+                            <t t-set="sheet" t-value="timesheets.project_id.id"/>
+                                   <t t-set="sale_id" t-value="timesheets.project_id.sale_order_id.id"/>
+                            <t t-set="sum" t-value="0.0"/>
+
+                                   <t t-foreach="request.env['sale.order'].sudo().search(['|',('id','=',sale_id),('project_id','=',sheet)])" t-as="sale_lines">
+                                                                  <t t-foreach="sale_lines.order_line" t-as="sale_line">
+
+                                        <t t-set="sale" t-value="sale + sale_line.product_uom_qty" />
+                                                                  </t>
+                            </t>
+
+
+                           <!--<t t-foreach="timesheets.project_id.sale_order_id.order_line" t-as="sale_line">-->
+                                        <!--<t t-set="sale" t-value="sale + sale_line.product_uom_qty" />-->
+                            <!--</t>-->
+                           <t t-set="credittotal" t-value="sum(l.unit_amount for l in request.env['account.analytic.line'].search([('task_id','!=',False),('project_id','=',sheet)]))"/>
+
+                                 <!--<t t-esc="sum(l.unit_amount for l in request.env['account.analytic.line'].search([('task_id','!=',False),('project_id','=',sheet)]))"  t-options='{"widget":"float_time", "unit": "hour", "round": "minute"}'/>-->
+
+
+
+                                <th colspan="5">Total Project Hours  <![CDATA[&nbsp;]]>: <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]>
+
+                              <b> <t t-esc="sale" t-options='{"widget":"float_time", "unit": "hour", "round": "minute"}'/></b>
+
+
+
+                                </th>
+
+                            </tr>
+
+
+                      <tr t-attf-class="{{'thead-light' if not groupby == 'none' else ''}}" style="background-color:#e9ecef;">
+
+                            <t t-set="credittotal" t-value="0"/>
+                            <t t-set="sale" t-value="0"/>
+                            <t t-set="sheet" t-value="timesheets.project_id.id"/>
+                             <t t-set="sale_id" t-value="timesheets.project_id.sale_order_id.id"/>
+                            <t t-set="sum" t-value="0.0"/>
+
+                                   <t t-foreach="request.env['sale.order'].sudo().search(['|',('id','=',sale_id),('project_id','=',sheet)])" t-as="sale_lines">
+                                                                  <t t-foreach="sale_lines.order_line" t-as="sale_line">
+
+                                        <t t-set="sale" t-value="sale + sale_line.product_uom_qty" />
+                                                                  </t>
+                            </t>
+
+
+
+                           <!--<t t-foreach="timesheets.project_id.sale_order_id.order_line" t-as="sale_line">-->
+                                        <!--<t t-set="sale" t-value="sale + sale_line.product_uom_qty" />-->
+                            <!--</t>-->
+                           <t t-set="credittotal" t-value="sum(l.unit_amount for l in request.env['account.analytic.line'].search([('task_id','!=',False),('project_id','=',sheet)]))"/>
+
+                                 <!--<t t-esc="sum(l.unit_amount for l in request.env['account.analytic.line'].search([('task_id','!=',False),('project_id','=',sheet)]))"  t-options='{"widget":"float_time", "unit": "hour", "round": "minute"}'/>-->
+
+
+
+                                <th colspan="5">Total Used Hours  <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>: <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]>
+
+                               <t t-set="credittotal" t-value="sum(l.unit_amount for l in request.env['account.analytic.line'].search([('task_id','!=',False),('project_id','=',sheet)]))"/>
+
+                                 <t t-esc="sum(l.unit_amount for l in request.env['account.analytic.line'].search([('task_id','!=',False),('project_id','=',sheet)]))"  t-options='{"widget":"float_time", "unit": "hour", "round": "minute"}'/>
+
+
+
+                                </th>
+
+                            </tr>
+
+                               <tr t-attf-class="{{'thead-light' if not groupby == 'none' else ''}}" style="background-color:#e9ecef;">
+
+                            <t t-set="credittotal" t-value="0"/>
+                            <t t-set="sale" t-value="0"/>
+                            <t t-set="sheet" t-value="timesheets.project_id.id"/>
+                             <t t-set="sale_id" t-value="timesheets.project_id.sale_order_id.id"/>
+                            <t t-set="sum" t-value="0.0"/>
+
+                                   <t t-foreach="request.env['sale.order'].sudo().search(['|',('id','=',sale_id),('project_id','=',sheet)])" t-as="sale_lines">
+                                                                  <t t-foreach="sale_lines.order_line" t-as="sale_line">
+
+                                        <t t-set="sale" t-value="sale + sale_line.product_uom_qty" />
+                                                                  </t>
+                            </t>
+
+
+
+                           <!--<t t-foreach="timesheets.project_id.sale_order_id.order_line" t-as="sale_line">-->
+                                        <!--<t t-set="sale" t-value="sale + sale_line.product_uom_qty" />-->
+                            <!--</t>-->
+                           <t t-set="credittotal" t-value="sum(l.unit_amount for l in request.env['account.analytic.line'].search([('task_id','!=',False),('project_id','=',sheet)]))"/>
+
+                                 <!--<t t-esc="sum(l.unit_amount for l in request.env['account.analytic.line'].search([('task_id','!=',False),('project_id','=',sheet)]))"  t-options='{"widget":"float_time", "unit": "hour", "round": "minute"}'/>-->
+
+
+
+                                <th colspan="5">Remaining Hours  <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>: <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]>
+
+                                                               <b> <t t-esc="sale - credittotal" t-options='{"widget":"float_time", "unit": "hour", "round": "minute"}'/></b>
+
+
+                                </th>
+
+                            </tr>
+
+
+                        </thead>
+        </xpath>
+
+
+          </template>
+
+
+  </data>
+</odoo>
